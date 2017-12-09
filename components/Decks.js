@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
+import * as PubSubJs from 'pubsub-js';
 
-var decks = [
-  {
-    key: 'React',
+var decks = {
+  "React": {
+    key: "React",
     title: 'React',
     questions: [
       {
@@ -16,8 +17,8 @@ var decks = [
       }
     ]
   },
-  {
-    key: 'JavaScript',
+  "Javascript": {
+    key: "Javascript",
     title: 'JavaScript',
     questions: [
       {
@@ -26,7 +27,7 @@ var decks = [
       }
     ]
   }
-];
+};
 
 function DeckListItem({ title, questions }) {
   return (
@@ -37,6 +38,18 @@ function DeckListItem({ title, questions }) {
 }
 
 class Decks extends Component {
+  state = {
+    decks: {}
+  }
+
+  componentDidMount() {
+    PubSubJs.subscribe("decks.updated", () => {
+      this.props.decksRepository.get().then((decks) => {
+        this.setState({ decks });
+      });
+    });
+  }
+
   renderItem({ item }) {
     return <DeckListItem {...item} />
   }
@@ -44,7 +57,7 @@ class Decks extends Component {
   render() {
     return (
       <View>
-        <FlatList data={decks} renderItem={this.renderItem} />
+        <FlatList data={Object.values(this.state.decks)} renderItem={this.renderItem} />
       </View>
     )
   }
