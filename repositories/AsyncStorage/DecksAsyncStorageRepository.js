@@ -1,19 +1,33 @@
 import { AsyncStorage } from 'react-native'
 
 import { DECKS_COLLECTION } from '../../data'
- 
+import Deck from '../../dtos/Deck'
+
 class DecksAsyncStorageRepository {
   add(deck) {
-    deck.key = deck.title;
+    return new Promise((resolve, reject) => {
+      if (!deck instanceof Deck) {
+        reject();
+      }
 
-    return AsyncStorage.mergeItem(DECKS_COLLECTION, JSON.stringify({
-      [deck.title]: deck 
-    }));
+      deck.key = deck.title;
+
+      AsyncStorage.mergeItem(DECKS_COLLECTION, JSON.stringify({
+        [deck.title]: deck
+      }), () => {
+        resolve();
+      });
+    });
   }
 
   get() {
     return AsyncStorage.getItem(DECKS_COLLECTION).then((decksJsonString) => {
+      if (decksJsonString === null) {
+        return {};
+      }
+
       let decks = JSON.parse(decksJsonString);
+
       return decks;
     })
   }

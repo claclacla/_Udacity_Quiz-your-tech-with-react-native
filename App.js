@@ -4,6 +4,9 @@ import { TabNavigator } from 'react-navigation';
 import { gray, white } from './utils/colors';
 import { Constants } from 'expo';
 import * as PubSubJs from 'pubsub-js';
+import { AsyncStorage } from 'react-native'
+
+AsyncStorage.clear();
 
 import DecksAsyncStorageRepository from './repositories/AsyncStorage/DecksAsyncStorageRepository';
 import Decks from './components/Decks';
@@ -38,14 +41,14 @@ var decks = [
 
 const Tabs = TabNavigator({
   Decks: {
-    screen: props => <Decks decksRepository={decksAsyncStorageRepository} />,
+    screen: props => <Decks decksRepository={decksAsyncStorageRepository} {...props} />,
     navigationOptions: {
       tabBarLabel: 'Decks',
       //tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     },
   },
   AddDeck: {
-    screen: props => <AddDeck decksRepository={decksAsyncStorageRepository}/>,
+    screen: props => <AddDeck decksRepository={decksAsyncStorageRepository} {...props} />,
     navigationOptions: {
       tabBarLabel: 'Add Deck',
       //tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
@@ -82,9 +85,9 @@ function AppStatusBar({ backgroundColor, ...props }) {
 
 export default class App extends React.Component {
   componentDidMount() {
-    decksAsyncStorageRepository.add(decks[0]).then(() => {
-      PubSubJs.publish("decks.updated");
-    });
+    //decksAsyncStorageRepository.add(decks[0]).then(() => {
+    //  PubSubJs.publish("decks.updated");
+    //});
   }
 
   render() {

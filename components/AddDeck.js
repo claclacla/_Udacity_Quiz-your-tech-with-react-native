@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, StyleSheet, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
+import * as PubSubJs from 'pubsub-js';
+
+import Deck from '../dtos/Deck';
 
 class AddDeck extends Component {
   static propTypes = {
@@ -11,8 +14,14 @@ class AddDeck extends Component {
     title: ""
   }
 
-  add() {
+  add = () => {
+    let deck = new Deck(this.state.title);
 
+    this.props.decksRepository.add(deck).then(() => {
+      this.setState({ title: "" });
+      PubSubJs.publish("decks.updated");
+      this.props.navigation.navigate('Decks');
+    });
   }
 
   render() {
@@ -20,6 +29,7 @@ class AddDeck extends Component {
       <View style={styles.container}>
         <Text style={styles.deckTitleLabel}>Add a new deck</Text>
         <TextInput
+          value={this.state.title}
           style={styles.deckTitle}
           placeholder="Deck title"
           onChangeText={(title) => this.setState({ title })}
