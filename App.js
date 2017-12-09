@@ -45,7 +45,7 @@ const Tabs = TabNavigator({
     },
   },
   AddDeck: {
-    screen: AddDeck,
+    screen: props => <AddDeck decksRepository={decksAsyncStorageRepository}/>,
     navigationOptions: {
       tabBarLabel: 'Add Deck',
       //tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
@@ -96,7 +96,6 @@ export default class App extends React.Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
 

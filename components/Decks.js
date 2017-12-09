@@ -1,33 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';
 import * as PubSubJs from 'pubsub-js';
-
-var decks = {
-  "React": {
-    key: "React",
-    title: 'React',
-    questions: [
-      {
-        question: 'What is React?',
-        answer: 'A library for managing user interfaces'
-      },
-      {
-        question: 'Where do you make Ajax requests in React?',
-        answer: 'The componentDidMount lifecycle event'
-      }
-    ]
-  },
-  "Javascript": {
-    key: "Javascript",
-    title: 'JavaScript',
-    questions: [
-      {
-        question: 'What is a closure?',
-        answer: 'The combination of a function and the lexical environment within which that function was declared.'
-      }
-    ]
-  }
-};
+import PropTypes from 'prop-types';
 
 function DeckListItem({ title, questions }) {
   return (
@@ -38,15 +12,25 @@ function DeckListItem({ title, questions }) {
 }
 
 class Decks extends Component {
+  static propTypes = {
+    decksRepository: PropTypes.object.isRequired
+  }
+
   state = {
     decks: {}
   }
 
+  getDecks() {
+    this.props.decksRepository.get().then((decks) => {
+      this.setState({ decks });
+    });
+  }
+
   componentDidMount() {
+    this.getDecks();
+
     PubSubJs.subscribe("decks.updated", () => {
-      this.props.decksRepository.get().then((decks) => {
-        this.setState({ decks });
-      });
+      this.getDecks();
     });
   }
 
@@ -71,7 +55,7 @@ const styles = StyleSheet.create({
     height: 80
   },
   deckListItemTitle: {
-    fontSize: 19
+    fontSize: 21
   }
 });
 
