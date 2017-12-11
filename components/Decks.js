@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, StyleSheet } from 'react-native';
+import { Text, View, FlatList, StyleSheet, TouchableHighlight } from 'react-native';
 import * as PubSubJs from 'pubsub-js';
 import PropTypes from 'prop-types';
 
-function DeckListItem({ title, questions }) {
+function DeckListItem({ title, questions, navigate }) {
   return (
     <View key={title} style={styles.deckListItem}>
-      <Text style={styles.deckListItemTitle}>{title} ({questions.length})</Text>
+      <TouchableHighlight onPress={() => { navigate('DeckDetail') }} underlayColor="#999">
+        <Text style={styles.deckListItemTitle}>{title} ({questions.length})</Text>
+      </TouchableHighlight>
     </View>
   )
 }
 
 class Decks extends Component {
   static propTypes = {
-    decksRepository: PropTypes.object.isRequired
+    decksRepository: PropTypes.object.isRequired,
+    navigation: PropTypes.object.isRequired
   }
 
   state = {
@@ -34,10 +37,6 @@ class Decks extends Component {
     });
   }
 
-  renderItem({ item }) {
-    return <DeckListItem {...item} />
-  }
-
   render() {
     if (Object.keys(this.state.decks).length === 0) {
       return (
@@ -49,7 +48,11 @@ class Decks extends Component {
 
     return (
       <View>
-        <FlatList data={Object.values(this.state.decks)} renderItem={this.renderItem} />
+        <FlatList 
+          data={Object.values(this.state.decks)} 
+          renderItem={({ item }) => {
+            return <DeckListItem {...item} navigate={this.props.navigation.navigate} />
+          }} />
       </View>
     )
   }

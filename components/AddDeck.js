@@ -7,7 +7,8 @@ import Deck from '../dtos/Deck';
 
 class AddDeck extends Component {
   static propTypes = {
-    decksRepository: PropTypes.object.isRequired
+    decksRepository: PropTypes.object.isRequired,
+    navigation: PropTypes.object.isRequired
   }
 
   state = {

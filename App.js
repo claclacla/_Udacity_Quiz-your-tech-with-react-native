@@ -1,16 +1,17 @@
 import React from 'react';
 import { Text, View, StatusBar, StyleSheet } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { gray, white } from './utils/colors';
 import { Constants } from 'expo';
 import * as PubSubJs from 'pubsub-js';
 import { AsyncStorage } from 'react-native'
 
-AsyncStorage.clear();
+//AsyncStorage.clear();
 
 import DecksAsyncStorageRepository from './repositories/AsyncStorage/DecksAsyncStorageRepository';
 import Decks from './components/Decks';
 import AddDeck from './components/AddDeck';
+import DeckDetail from './components/DeckDetail';
 
 var decksAsyncStorageRepository = new DecksAsyncStorageRepository();
 
@@ -75,6 +76,18 @@ const Tabs = TabNavigator({
     }
   });
 
+  const MainNavigator = StackNavigator({
+    Home: {
+      screen: Tabs,
+    },
+    DeckDetail: {
+      screen: DeckDetail,
+      navigationOptions: {
+        
+      }
+    }
+  })  
+
 function AppStatusBar({ backgroundColor, ...props }) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -84,17 +97,11 @@ function AppStatusBar({ backgroundColor, ...props }) {
 }
 
 export default class App extends React.Component {
-  componentDidMount() {
-    //decksAsyncStorageRepository.add(decks[0]).then(() => {
-    //  PubSubJs.publish("decks.updated");
-    //});
-  }
-
   render() {
     return (
       <View style={{ flex: 1 }}>
         <AppStatusBar backgroundColor={white} barStyle="light-content" />
-        <Tabs />
+        <MainNavigator />
       </View>
     );
   }
