@@ -31,6 +31,18 @@ class DecksAsyncStorageRepository {
       return decks;
     })
   }
+
+  getById(id) {
+    return AsyncStorage.getItem(DECKS_COLLECTION).then((decksJsonString) => {
+      if (decksJsonString === null) {
+        return {};
+      }
+
+      let decks = JSON.parse(decksJsonString);
+
+      return decks[id];
+    })
+  }
 }
 
 export default DecksAsyncStorageRepository

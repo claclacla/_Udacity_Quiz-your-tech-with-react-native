@@ -3,10 +3,10 @@ import { Text, View, FlatList, StyleSheet, TouchableHighlight } from 'react-nati
 import * as PubSubJs from 'pubsub-js';
 import PropTypes from 'prop-types';
 
-function DeckListItem({ title, questions, navigate }) {
+function DeckListItem({ title, questions, navigate, decksRepository }) {
   return (
     <View key={title} style={styles.deckListItem}>
-      <TouchableHighlight onPress={() => { navigate('DeckDetail') }} underlayColor="#999">
+      <TouchableHighlight onPress={() => { navigate('DeckDetail', {title: title, decksRepository: decksRepository}) }} underlayColor="#999">
         <Text style={styles.deckListItemTitle}>{title} ({questions.length})</Text>
       </TouchableHighlight>
     </View>
@@ -51,7 +51,7 @@ class Decks extends Component {
         <FlatList 
           data={Object.values(this.state.decks)} 
           renderItem={({ item }) => {
-            return <DeckListItem {...item} navigate={this.props.navigation.navigate} />
+            return <DeckListItem {...item} navigate={this.props.navigation.navigate} decksRepository={this.props.decksRepository} />
           }} />
       </View>
     )
