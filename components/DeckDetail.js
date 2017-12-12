@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import * as PubSubJs from 'pubsub-js';
 
 class DeckDetail extends Component {
   constructor(props) {
@@ -11,17 +12,27 @@ class DeckDetail extends Component {
 
     this.decksRepository = this.props.navigation.state.params.decksRepository;
 
+    this.getDeck();
+  }
+
+  getDeck() {
     this.decksRepository.getById(this.state.title).then((deck) => {
       this.setState({ deck });
     });
   }
 
   addCard = () => {
-    this.props.navigation.navigate("AddCard");
+    this.props.navigation.navigate("AddCard", {
+      decksRepository: this.decksRepository,
+      deckTitle: this.state.title,
+      updateDeckDetail: () => {
+        this.getDeck();
+      }
+    });
   }
 
   startQuiz() {
-    
+
   }
 
   render() {

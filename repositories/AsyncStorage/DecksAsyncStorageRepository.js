@@ -32,6 +32,20 @@ class DecksAsyncStorageRepository {
     })
   }
 
+  update(id, deck) {
+    return new Promise((resolve, reject) => {
+      if (!deck instanceof Deck) {
+        reject();
+      }
+
+      AsyncStorage.mergeItem(DECKS_COLLECTION, JSON.stringify({
+        [id]: deck
+      }), () => {
+        resolve();
+      });
+    });
+  }
+
   getById(id) {
     return AsyncStorage.getItem(DECKS_COLLECTION).then((decksJsonString) => {
       if (decksJsonString === null) {
