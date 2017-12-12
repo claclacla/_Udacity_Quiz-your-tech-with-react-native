@@ -12,6 +12,7 @@ import DecksAsyncStorageRepository from './repositories/AsyncStorage/DecksAsyncS
 import Decks from './components/Decks';
 import AddDeck from './components/AddDeck';
 import DeckDetail from './components/DeckDetail';
+import AddCard from './components/AddCard';
 
 var decksAsyncStorageRepository = new DecksAsyncStorageRepository();
 
@@ -82,6 +83,12 @@ const Tabs = TabNavigator({
     },
     DeckDetail: {
       screen: DeckDetail,
+      navigationOptions: {
+        
+      }
+    },
+    AddCard: {
+      screen: AddCard,
       navigationOptions: {
         
       }

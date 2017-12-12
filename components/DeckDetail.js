@@ -16,8 +16,8 @@ class DeckDetail extends Component {
     });
   }
 
-  addCard() {
-
+  addCard = () => {
+    this.props.navigation.navigate("AddCard");
   }
 
   startQuiz() {
@@ -37,7 +37,7 @@ class DeckDetail extends Component {
       <View style={styles.container}>
         <Text style={styles.deckTitleLabel}>{this.state.deck.title}</Text>
         <Text style={styles.deckTitleAmount}>{this.state.deck.questions.length} cards</Text>
-        <TouchableHighlight style={styles.addBtn} onPress={this.add} underlayColor="#888">
+        <TouchableHighlight style={styles.addBtn} onPress={this.addCard} underlayColor="#555">
           <Text style={styles.addBtnText}>Add card</Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.startQuiz} onPress={this.startQuiz} underlayColor="#888">
