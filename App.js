@@ -13,6 +13,7 @@ import Decks from './components/Decks';
 import AddDeck from './components/AddDeck';
 import DeckDetail from './components/DeckDetail';
 import AddCard from './components/AddCard';
+import Quiz from './components/Quiz';
 
 var decksAsyncStorageRepository = new DecksAsyncStorageRepository();
 
@@ -77,23 +78,29 @@ const Tabs = TabNavigator({
     }
   });
 
-  const MainNavigator = StackNavigator({
-    Home: {
-      screen: Tabs,
-    },
-    DeckDetail: {
-      screen: DeckDetail,
-      navigationOptions: {
-        
-      }
-    },
-    AddCard: {
-      screen: AddCard,
-      navigationOptions: {
-        
-      }
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckDetail: {
+    screen: DeckDetail,
+    navigationOptions: {
+
     }
-  })  
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+
+    }
+  }
+})
 
 function AppStatusBar({ backgroundColor, ...props }) {
   return (

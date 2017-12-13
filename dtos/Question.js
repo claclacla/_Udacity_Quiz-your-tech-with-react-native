@@ -1,5 +1,5 @@
 class Question {
-  constructor(text, answer) {
+  constructor(text, answer, correct) {
     if(text === undefined) {
       throw new Error("text is a required field");
     }
@@ -8,7 +8,13 @@ class Question {
       throw new Error("answer is a required field");
     }
 
+    if(correct === undefined) {
+      throw new Error("correct is a required field");
+    }
+
+    this.text = text;
     this.answer = answer;
+    this.correct = correct;
   }
 }
 

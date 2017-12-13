@@ -31,8 +31,10 @@ class DeckDetail extends Component {
     });
   }
 
-  startQuiz() {
-
+  startQuiz = () => {
+    this.props.navigation.navigate("Quiz", {
+      deck: this.state.deck
+    });
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, StyleSheet, TouchableHighlight } from 'react-native';
+import { Text, TextInput, View, StyleSheet, Switch, TouchableHighlight } from 'react-native';
 import * as PubSubJs from 'pubsub-js';
 
 import Question from "../dtos/Question"
@@ -10,7 +10,8 @@ class AddCard extends Component {
 
     this.state = {
       text: "",
-      answer: ""
+      answer: "",
+      correct: false
     };
 
     this.decksRepository = this.props.navigation.state.params.decksRepository;
@@ -18,8 +19,12 @@ class AddCard extends Component {
     this.updateDeckDetail = this.props.navigation.state.params.updateDeckDetail;
   }
 
+  setCorrect = () => {
+    this.setState({ correct: !this.state.correct });
+  }
+
   add = () => {
-    let question = new Question(this.state.text, this.state.answer);
+    let question = new Question(this.state.text, this.state.answer, this.state.correct);
 
     this.decksRepository.getById(this.deckTitle).then((deck) => {
       deck.questions.push(question);
@@ -28,7 +33,7 @@ class AddCard extends Component {
         PubSubJs.publish("decks.updated");
         this.updateDeckDetail();
         this.props.navigation.goBack();
-      }); 
+      });
     });
   }
 
@@ -48,6 +53,13 @@ class AddCard extends Component {
           placeholder="Answer"
           onChangeText={(answer) => this.setState({ answer })}
         />
+
+        <Text style={styles.correctText}>Correct</Text>
+        <Switch
+          onValueChange={this.setCorrect}
+          value={this.state.correct}
+        />
+
         <TouchableHighlight style={styles.addBtn} onPress={this.add} underlayColor="#888">
           <Text style={styles.addBtnText}>Submit</Text>
         </TouchableHighlight>
@@ -93,6 +105,9 @@ const styles = new StyleSheet.create({
   },
   addBtnText: {
     color: "#fff"
+  },
+  correctText: {
+    fontSize: 21
   }
 });
 
