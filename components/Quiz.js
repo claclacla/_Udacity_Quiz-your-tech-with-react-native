@@ -49,6 +49,7 @@ class Quiz extends Component {
         <TouchableHighlight style={styles.incorrectBtn} onPress={this.answerQuestion} underlayColor="#f44842">
           <Text style={styles.incorrectBtnText}>Incorrect</Text>
         </TouchableHighlight>
+        <Text style={styles.questionStep}>Question {this.state.questionIndex + 1} of {this.deck.questions.length}</Text>
       </View>
     );
   }
@@ -98,6 +99,10 @@ const styles = new StyleSheet.create({
   flipBtnText: {
     fontSize: 17,
     color: "#f44842"
+  },
+  questionStep: {
+    marginTop: 20,
+    fontSize: 17
   }
 });
 
