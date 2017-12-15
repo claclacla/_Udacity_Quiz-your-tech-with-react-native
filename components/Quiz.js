@@ -23,10 +23,14 @@ class Quiz extends Component {
   }
 
   answerQuestion = () => {
-    this.props.navigation.navigate("Score", {
-      deck: this.deck,
-      goBackToDeckDetail: () => this.props.navigation.goBack()
-    });
+    if((this.state.questionIndex + 1) === this.deck.questions.length) {
+      return this.props.navigation.navigate("Score", {
+        deck: this.deck,
+        goBackToDeckDetail: () => this.props.navigation.goBack()
+      });
+    }
+
+    this.setState({ questionIndex: this.state.questionIndex + 1 });
   }
 
   render() {
