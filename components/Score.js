@@ -15,10 +15,10 @@ class Score extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Your score: 65%</Text>
-        <TouchableHighlight style={styles.correctBtn} onPress={this.goBackToDeck} underlayColor="#15c11a">
-          <Text style={styles.correctBtnText}>Correct</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>Your score: 65%</Text>
+        <TouchableHighlight style={styles.correctBtn} onPress={this.goBackToDeck} underlayColor="#555">
+          <Text style={styles.correctBtnText}>Back to deck</Text>
         </TouchableHighlight>
       </View>
     );
@@ -38,7 +38,7 @@ const styles = new StyleSheet.create({
     marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#0da812",
+    backgroundColor: "#777",
     paddingLeft: 40,
     paddingRight: 40,
     borderRadius: 5,
