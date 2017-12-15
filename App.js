@@ -14,6 +14,7 @@ import AddDeck from './components/AddDeck';
 import DeckDetail from './components/DeckDetail';
 import AddCard from './components/AddCard';
 import Quiz from './components/Quiz';
+import Score from './components/Score';
 
 var decksAsyncStorageRepository = new DecksAsyncStorageRepository();
 
@@ -96,6 +97,12 @@ const MainNavigator = StackNavigator({
   },
   Quiz: {
     screen: Quiz,
+    navigationOptions: {
+
+    }
+  },
+  Score: {
+    screen: Score,
     navigationOptions: {
 
     }

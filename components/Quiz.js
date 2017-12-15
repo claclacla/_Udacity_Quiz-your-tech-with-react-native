@@ -13,6 +13,8 @@ class Quiz extends Component {
       questionIndex: 0
     };
 
+    this.decksRepository = this.props.navigation.state.params.decksRepository;
+    this.deckTitle = this.props.navigation.state.params.deckTitle;
     this.deck = this.props.navigation.state.params.deck;
   }
 
@@ -21,7 +23,10 @@ class Quiz extends Component {
   }
 
   answerQuestion = () => {
-
+    this.props.navigation.navigate("Score", {
+      deck: this.deck,
+      goBackToDeckDetail: () => this.props.navigation.goBack()
+    });
   }
 
   render() {
