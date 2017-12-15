@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 
+import Report from '../dtos/Report'; 
+
 const QUESTION = 1;
-const ANSWER = 2;
+const RESPONSE = 2;
+
+const CORRECT = "Correct";
+const INCORRECT = "Incorrect";
 
 class Quiz extends Component {
   constructor(props) {
@@ -16,16 +21,20 @@ class Quiz extends Component {
     this.decksRepository = this.props.navigation.state.params.decksRepository;
     this.deckTitle = this.props.navigation.state.params.deckTitle;
     this.deck = this.props.navigation.state.params.deck;
+
+    this.report = new Report(this.deck.questions);
   }
 
   flipCard = () => {
-    this.setState({ cardSide: this.state.cardSide === QUESTION ? ANSWER : QUESTION });
+    this.setState({ cardSide: this.state.cardSide === QUESTION ? RESPONSE : QUESTION });
   }
 
-  answerQuestion = () => {
+  answerQuestion = (response) => {
+    this.report.responses.push(response === CORRECT ? true : false);
+
     if((this.state.questionIndex + 1) === this.deck.questions.length) {
       return this.props.navigation.navigate("Score", {
-        deck: this.deck,
+        report: this.report,
         goBackToDeckDetail: () => this.props.navigation.goBack()
       });
     }
@@ -40,22 +49,22 @@ class Quiz extends Component {
           <View style={styles.flipContainer}>
             <Text style={styles.text}>{this.deck.questions[this.state.questionIndex].text}</Text>
             <TouchableHighlight style={styles.flipBtn} onPress={this.flipCard}>
-              <Text style={styles.flipBtnText}>Show answer</Text>
+              <Text style={styles.flipBtnText}>Show response</Text>
             </TouchableHighlight>
           </View>
         }
-        {this.state.cardSide === ANSWER &&
+        {this.state.cardSide === RESPONSE &&
           <View style={styles.flipContainer}>
-            <Text style={styles.text}>{this.deck.questions[this.state.questionIndex].answer}</Text>
+            <Text style={styles.text}>{this.deck.questions[this.state.questionIndex].response}</Text>
             <TouchableHighlight style={styles.flipBtn} onPress={this.flipCard}>
               <Text style={styles.flipBtnText}>Show question</Text>
             </TouchableHighlight>
           </View>
         }
-        <TouchableHighlight style={styles.correctBtn} onPress={this.answerQuestion} underlayColor="#15c11a">
+        <TouchableHighlight style={styles.correctBtn} onPress={() => this.answerQuestion(CORRECT)} underlayColor="#15c11a">
           <Text style={styles.correctBtnText}>Correct</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.incorrectBtn} onPress={this.answerQuestion} underlayColor="#f44842">
+        <TouchableHighlight style={styles.incorrectBtn} onPress={() => this.answerQuestion(INCORRECT)} underlayColor="#f44842">
           <Text style={styles.incorrectBtnText}>Incorrect</Text>
         </TouchableHighlight>
         <Text style={styles.questionStep}>Question {this.state.questionIndex + 1} of {this.deck.questions.length}</Text>
