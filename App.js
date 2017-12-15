@@ -8,6 +8,7 @@ import { AsyncStorage } from 'react-native'
 
 //AsyncStorage.clear();
 
+import { setLocalNotification } from './utils/notifications'
 import DecksAsyncStorageRepository from './repositories/AsyncStorage/DecksAsyncStorageRepository';
 import Decks from './components/Decks';
 import AddDeck from './components/AddDeck';
@@ -118,6 +119,10 @@ function AppStatusBar({ backgroundColor, ...props }) {
 }
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
