@@ -10,7 +10,7 @@ class AddCard extends Component {
 
     this.state = {
       text: "",
-      answer: "",
+      response: "",
       correct: false
     };
 
@@ -24,7 +24,7 @@ class AddCard extends Component {
   }
 
   add = () => {
-    let question = new Question(this.state.text, this.state.answer, this.state.correct);
+    let question = new Question(this.state.text, this.state.response, this.state.correct);
 
     this.decksRepository.getById(this.deckTitle).then((deck) => {
       deck.questions.push(question);
@@ -48,10 +48,10 @@ class AddCard extends Component {
           onChangeText={(text) => this.setState({ text })}
         />
         <TextInput
-          value={this.state.answer}
+          value={this.state.response}
           style={styles.cardAnswer}
           placeholder="Answer"
-          onChangeText={(answer) => this.setState({ answer })}
+          onChangeText={(response) => this.setState({ response })}
         />
 
         <Text style={styles.correctText}>Correct</Text>
