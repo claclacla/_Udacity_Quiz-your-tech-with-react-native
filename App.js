@@ -6,7 +6,7 @@ import { Constants } from 'expo';
 import * as PubSubJs from 'pubsub-js';
 import { AsyncStorage } from 'react-native'
 
-AsyncStorage.clear();
+//AsyncStorage.clear();
 
 import { setLocalNotification } from './utils/notifications';
 import DecksAsyncStorageRepository from './repositories/AsyncStorage/DecksAsyncStorageRepository';
