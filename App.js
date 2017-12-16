@@ -8,7 +8,7 @@ import { AsyncStorage } from 'react-native'
 
 //AsyncStorage.clear();
 
-import { setLocalNotification } from './utils/notifications'
+import { setLocalNotification } from './utils/notifications';
 import DecksAsyncStorageRepository from './repositories/AsyncStorage/DecksAsyncStorageRepository';
 import Decks from './components/Decks';
 import AddDeck from './components/AddDeck';

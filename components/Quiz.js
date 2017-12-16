@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 
+import { clearLocalNotification } from '../utils/notifications';
 import Report from '../dtos/Report'; 
 
 const QUESTION = 1;
@@ -37,6 +38,7 @@ class Quiz extends Component {
         report: this.report,
         goBackToDeckDetail: () => this.props.navigation.goBack()
       });
+      clearLocalNotification();
     }
 
     this.setState({ questionIndex: this.state.questionIndex + 1 });
