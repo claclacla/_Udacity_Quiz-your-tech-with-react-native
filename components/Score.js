@@ -8,6 +8,7 @@ class Score extends Component {
 
     this.report = this.props.navigation.state.params.report;
     this.goBackToDeckDetail = this.props.navigation.state.params.goBackToDeckDetail;
+    this.updateQuiz = this.props.navigation.state.params.updateQuiz;
 
     this.score = this.getReportScore();
   }
@@ -32,12 +33,20 @@ class Score extends Component {
     this.goBackToDeckDetail();
   }
 
+  restartTheQuiz = () => {
+    this.updateQuiz();
+    this.props.navigation.goBack();
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Your score: {this.score}%</Text>
         <TouchableHighlight style={styles.correctBtn} onPress={this.goBackToDeck} underlayColor="#555">
           <Text style={styles.correctBtnText}>Back to deck</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.correctBtn} onPress={this.restartTheQuiz} underlayColor="#555">
+          <Text style={styles.correctBtnText}>Restart the quiz</Text>
         </TouchableHighlight>
       </View>
     );

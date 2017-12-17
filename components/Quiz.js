@@ -30,13 +30,21 @@ class Quiz extends Component {
     this.setState({ cardSide: this.state.cardSide === QUESTION ? RESPONSE : QUESTION });
   }
 
+  resetQuiz = () => {
+    this.setState({ questionIndex: 0 });
+    this.report.responses = [];
+  }
+
   answerQuestion = (response) => {
     this.report.responses.push(response === CORRECT ? true : false);
 
     if((this.state.questionIndex + 1) === this.deck.questions.length) {
       return this.props.navigation.navigate("Score", {
         report: this.report,
-        goBackToDeckDetail: () => this.props.navigation.goBack()
+        goBackToDeckDetail: () => this.props.navigation.goBack(),
+        updateQuiz: () => {
+          this.resetQuiz()
+        }
       });
       clearLocalNotification();
     }
