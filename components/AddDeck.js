@@ -19,9 +19,9 @@ class AddDeck extends Component {
     let deck = new Deck(this.state.title);
 
     this.props.decksRepository.add(deck).then(() => {
-      this.setState({ title: "" });
       PubSubJs.publish("decks.updated");
-      this.props.navigation.navigate('Decks');
+      this.props.navigation.navigate('DeckDetail', {title: this.state.title, decksRepository: this.props.decksRepository});
+      this.setState({ title: "" });
     });
   }
 
