@@ -16,39 +16,37 @@ Don't worry! Go back to the deck detail page and restart the quiz!
 What things you need to install the software 
 
 ```
-node 
-yarn
+docker 17+
+docker-compose 1.19.0+
+
 ```
 
 --------------------------------------------------------------------------------
 
-### Installing
+### Development
+
+```bash
+# Change the directory to the docker development 
+cd docker/dev
+
+# Create a .env file with your local application folder
+echo "APP_FOLDER=/path-to-your-local/app" > .env 
+
+# Run the micro services using docker compose
+sudo docker-compose up -d
+
+# Connect your mobile to your laptop. If they aren't on the same wifi network,
+# activate the usb tethering for sharing the mobile network with your computer.
+
+# Find your local laptop address using a tool like ifconfig.
+
+# Install Expo Client(http://expo.io) on your phone. 
+
+# Launch the Expo Client and insert manually the Native server address
+# on "Explore" tab search bar:
+# exp://<your-laptop-ip-address>:19000
 
 ```
-# Get the latest snapshot
-git clone https://github.com/claclacla/_Udacity_Quiz-your-tech-with-react-native
-
-# Change directory
-cd _Udacity_Quiz-your-tech-with-react-native
-
-# Install NPM dependencies
-npm i
-```
-
---------------------------------------------------------------------------------
-
-### Usage
-
-```
-# Open a terminal and change directory to your App location
-cd _Udacity_Quiz-your-tech-with-react-native
-
-# Run the app
-yarn start
-```
-
-Install Expo Client(http://expo.io/learn) on your phone. 
-Launch the Expo Client, scan the QR Code from your computer and watch the mobile App.
 
 --------------------------------------------------------------------------------
 
@@ -68,5 +66,5 @@ This project is licensed under the MIT License
 
 - [ReactJs](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
-- [React Native](https://facebook.github.io/react-native//)
+- [React Native](https://facebook.github.io/react-native/)
 - [Expo](https://expo.io)

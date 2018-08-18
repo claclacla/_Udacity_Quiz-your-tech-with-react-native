@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  udacity-quiz-application:
+    build: ./udacity-quiz-application
+    image: claclacla/udacity-quiz-application
+    container_name: UdacityQuizApplication
+    volumes:
+      - "${APP_FOLDER}:/usr/src/app"
+    ports:
+      - 19000:19000
+      - 19001:19001
+    tty: true
+    stdin_open: true
